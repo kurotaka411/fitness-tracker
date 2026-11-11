@@ -25,6 +25,19 @@ def init_db(db_path: Path | str = DB_PATH) -> None:
             )
             """
         )
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS foods (
+                id       INTEGER PRIMARY KEY AUTOINCREMENT,
+                code     TEXT    UNIQUE,
+                name     TEXT    NOT NULL,
+                calories REAL,
+                protein  REAL,
+                fat      REAL,
+                carbs    REAL
+            )
+            """
+        )
         conn.commit()
     finally:
         conn.close()
