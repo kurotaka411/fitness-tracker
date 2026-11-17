@@ -38,6 +38,17 @@ def init_db(db_path: Path | str = DB_PATH) -> None:
             )
             """
         )
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS meals (
+                id        INTEGER PRIMARY KEY AUTOINCREMENT,
+                date      TEXT    NOT NULL,
+                meal_type TEXT    NOT NULL,
+                food_id   INTEGER NOT NULL REFERENCES foods(id),
+                grams     REAL    NOT NULL
+            )
+            """
+        )
         conn.commit()
     finally:
         conn.close()
