@@ -1,29 +1,4 @@
-import os
-
-from fastapi.testclient import TestClient
-
-from app import database
-from app.main import app
-
-TEST_DB = "test_fitness.db"
-
-
-def override_get_db():
-    conn = database.connect(TEST_DB)
-    try:
-        yield conn
-    finally:
-        conn.close()
-
-
-app.dependency_overrides[database.get_db] = override_get_db
-client = TestClient(app)
-
-
-def reset_db():
-    if os.path.exists(TEST_DB):
-        os.remove(TEST_DB)
-    database.init_db(TEST_DB)
+from tests.helpers import client, reset_db, add_food, add_meal, add_workout
 
 def test_create_expands_set():
     reset_db()
