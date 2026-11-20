@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>食事の記録</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>食事の記録</h1>
+  </header>
+
+  <main>
+    <!-- 入力 -->
+    <section class="card">
+      <div class="row">
+        <label class="field">
+          <span>日付</span>
+          <input type="date" id="date">
+        </label>
+        <label class="field">
+          <span>区分</span>
+          <select id="meal-type">
+            <option value="朝食">朝食</option>
+            <option value="昼食">昼食</option>
+            <option value="夕食">夕食</option>
+            <option value="間食">間食</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="field">
+        <span>食品を検索</span>
+        <input type="search" id="keyword" placeholder="例：にわとり むね" autocomplete="off">
+      </label>
+      <ul id="candidates" class="candidates"></ul>
+      <p id="search-message" class="muted"></p>
+
+      <div id="selected" class="selected" hidden>
+        <p class="selected-name" id="selected-name"></p>
+        <div class="row">
+          <label class="field grams">
+            <span>グラム</span>
+            <input type="number" id="grams" inputmode="decimal" min="0" step="any" placeholder="100">
+          </label>
+          <button type="button" id="add-to-cart" class="primary">かごに入れる</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- かご -->
+    <section class="card">
+      <h2>かご</h2>
+      <ul id="cart" class="list"></ul>
+      <p id="cart-empty" class="muted">かごは空です</p>
+      <p id="post-error" class="error" hidden></p>
+      <button type="button" id="submit" class="primary wide" disabled>まとめて記録</button>
+    </section>
+
+    <!-- その日の合計 -->
+    <section class="card">
+      <h2>その日の合計</h2>
+      <dl class="totals">
+        <div><dt>カロリー</dt><dd><span id="total-calories">-</span> kcal</dd></div>
+        <div><dt>たんぱく質</dt><dd><span id="total-protein">-</span> g</dd></div>
+        <div><dt>脂質</dt><dd><span id="total-fat">-</span> g</dd></div>
+        <div><dt>炭水化物</dt><dd><span id="total-carbs">-</span> g</dd></div>
+      </dl>
+      <p id="missing-note" class="muted" hidden></p>
+    </section>
+
+    <!-- その日の一覧 -->
+    <section class="card">
+      <h2>その日の食事</h2>
+      <p id="load-error" class="error" hidden></p>
+      <div id="meals"></div>
+      <p id="meals-empty" class="muted">記録はありません</p>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

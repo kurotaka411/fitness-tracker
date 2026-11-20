@@ -5,7 +5,7 @@ DB_PATH = Path(__file__).resolve().parent.parent / "fitness.db"
 #Path(__file__)これでこのファイルの場所を基準に決まった場所に作られる。.resolve()：C:\から始まる完全な場所にする。.parent:cd..と同義 
 
 def connect(db_path: Path | str = DB_PATH) -> sqlite3.Connection:
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(db_path, check_same_thread=False)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     return conn
